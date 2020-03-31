@@ -4,8 +4,8 @@
  * @version 1.0.0
  */
 
-import MotionCard from '/components/motion-card.js';
-import { fetchMotions } from '/utilities/api.js';
+import MotionCard from './components/motion-card.js';
+import { fetchMotions } from './utilities/api.js';
 
 // Register motion card custom element
 customElements.define('motion-card', MotionCard);

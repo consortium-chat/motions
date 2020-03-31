@@ -4,7 +4,7 @@
  * @version 1.0.0
  */
 
-import { sequence } from '/utilities/damm.js';
+import { sequence } from '../utilities/damm.js';
 
 /**
  * Shadow root references
