@@ -20,3 +20,14 @@ export async function fetchMotions() {
 	const response = await fetch(url);
 	return await response.json();
 }
+
+/**
+ * Fetch votes by motion identifier
+ * @return {object[]}
+ */
+export async function fetchVotes(id) {
+	const url = new URL(`/votes/${id}`, API_BASE);
+	const response = await fetch(url);
+	return await response.json();
+}
+
