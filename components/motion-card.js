@@ -17,12 +17,29 @@ const shadowRoots = new WeakMap;
  */
 export default class extends HTMLElement {
 
+	/**
+	 * Instance constructor
+	 */
 	constructor() {
 		super();
-		const shadowRoot = this.attachShadow({ mode: 'open' });
-		shadowRoots.set(this, shadowRoot);
-		const template = document.getElementById('motion-card').content;
-		shadowRoot.appendChild(template.cloneNode(true));
+	}
+
+	/**
+	 * Element connected lifecycle callback
+	 */
+	connectedCallback() {
+		this.innerHTML = `
+			<header>
+				<h2 id=title></h2>
+				<p id=datetime>
+			</header>
+			<main>
+				<p><b>Motion</b> <span id=text></span>
+			</main>
+			<footer>
+				<p id=command>
+			</footer>
+		`;
 	}
 	
 	/**

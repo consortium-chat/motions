@@ -113,7 +113,38 @@ header p {
 	color: var(--subtle);
 }
 
-/* Dark theme users */
+motion-card {
+	display: block;
+	border: var(--card-border);
+	margin: 1rem 0;
+}
+
+motion-card header,
+motion-card main,
+motion-card footer {
+	padding: var(--small-padding);
+}
+
+motion-card header {
+	background-color: var(--secondary-bar);
+	display: flex;
+	align-items: baseline;
+}
+
+motion-card header h2 {
+	margin: 0;
+	margin-right: 1rem;
+}
+
+motion-card header p {
+	margin-left: 1rem;
+	font-weight: 300;
+	color: var(--subtle);
+}
+
+motion-card footer {
+	background-color: var(--secondary-bar);
+}
 
 @media (prefers-color-scheme: dark) {
 	:root {
