@@ -28,32 +28,28 @@ export default class extends HTMLElement {
 	 * Element connected lifecycle callback
 	 */
 	connectedCallback() {
+		const date = new Date(this.data.motioned_at);
+		const voteId = sequence(this.data.rowid.toString());
 		this.innerHTML = `
 			<header>
-				<h2 id=title></h2>
-				<p id=datetime>
+				<h2>Motion ${ this.data.rowid }</h2>
+				<p class=datetime>${ date.toLocaleDateString() } ${ date.toLocaleTimeString() }
 			</header>
 			<main>
-				<p><b>Motion</b> <span id=text></span>
+				<p><b>Motion</b> ${ this.data.motion_text }
 			</main>
 			<footer>
-				<p id=command>
+				<p class=command>$vote ${ voteId }
 			</footer>
 		`;
 	}
 	
 	/**
-	 * Populate card
+	 * Populate card data
 	 * @param {object} data - Motion API object
 	 */
 	populate(data) {
-		const shadowRoot = shadowRoots.get(this);
-		shadowRoot.getElementById('title').innerText = `Motion ${ data.rowid }`;
-		const date = new Date(data.motioned_at);
-		shadowRoot.getElementById('datetime').innerText = date.toLocaleDateString() + ' ' + date.toLocaleTimeString();
-		const voteId = sequence(data.rowid.toString());
-		shadowRoot.getElementById('command').innerText = `$vote ${ voteId }`;
-		shadowRoot.getElementById('text').innerText = data.motion_text;
+		this.data = data;
 	}
 }
 
