@@ -7,12 +7,6 @@
 import { sequence } from '../utilities/damm.js';
 
 /**
- * Shadow root references
- * @type {WeakMap<ShadowRoot>}
- */
-const shadowRoots = new WeakMap;
-
-/**
  * Motion Card custom element
  */
 export default class extends HTMLElement {
