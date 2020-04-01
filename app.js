@@ -1,7 +1,5 @@
 /**
- * @file instantiates and mounts the Vue application
- * @author Benjamin Herman <benjamin@metanomial.com>
- * @version 1.0.0
+ * @file Initiates web app
  */
 
 import MotionCard from './components/motion-card.js';
@@ -11,7 +9,7 @@ import { fetchMotions } from './utilities/api.js';
 customElements.define('motion-card', MotionCard);
 
 /**
- * Toggle filter bar visibility
+ * Toggle `visibile` class on filter bar
  */
 function toggleFilterBar() {
 	document.getElementById('filters').classList.toggle('visible');
@@ -22,12 +20,14 @@ function toggleFilterBar() {
  */
 function init() {
 	document.getElementById('filter-toggle').onclick = toggleFilterBar;
-	if(history.state == null) history.replaceState({ active: true }, document.title);
 	loadMotions();
 }
 
+// Listen for DOM content load events
+document.addEventListener('DOMContentLoaded', init);
+
 /**
- * History state change handler
+ * Load motions from API
  */
 async function loadMotions() {
 	const motions = await fetchMotions();
@@ -39,9 +39,3 @@ async function loadMotions() {
 		listingDiv.appendChild(card);
 	}
 }
-
-// Listen for DOM content load events
-document.addEventListener('DOMContentLoaded', init);
-
-// Listen for history state change events
-window.addEventListener('popstate', loadMotions);

@@ -1,13 +1,11 @@
 /**
- * @file defines Motion Card component
- * @author Benjamin Herman <benjamin@metanomial.com>
- * @version 1.0.0
+ * @file Motion Card component
  */
 
 import { sequence } from '../utilities/damm.js';
 
 /**
- * Motion Card custom element
+ * Motion Card custom element class
  */
 export default class extends HTMLElement {
 
@@ -20,6 +18,7 @@ export default class extends HTMLElement {
 
 	/**
 	 * Element connected lifecycle callback
+	 * @see https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_custom_elements#Using_the_lifecycle_callbacks
 	 */
 	connectedCallback() {
 		const date = new Date(this.data.motioned_at);
@@ -46,11 +45,3 @@ export default class extends HTMLElement {
 		this.data = data;
 	}
 }
-
-/**
- * Compute formatted vote sequence
- * @return {string} Bot vote command
- */
-/*function vote() {
-	return `$vote ${ sequence(this.motion.rowid.toString()) }`;
-}*/

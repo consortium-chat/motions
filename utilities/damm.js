@@ -1,7 +1,5 @@
 /**
- * @file Damm algorithm
- * @author Benjamin Herman <benjamin@metanomial.com>
- * @version 1.0.0
+ * @file Implementation of Damm algorithm
  * @see {@link https://en.wikipedia.org/wiki/Damm_algorithm|Damm algorithm}
  */
 
@@ -58,7 +56,7 @@ export function sequence(input) {
 }
 
 /**
- * Verify Damm sequnce
+ * Verify a Damm sequnce
  * @param {string} input - Numeric string
  * @throws {TypeError} when input contains non-digit character
  * @return {boolean}

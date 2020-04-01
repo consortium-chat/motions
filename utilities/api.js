@@ -1,7 +1,5 @@
 /**
- * @file defines API utilities
- * @author Benjamin Herman <benjamin@metanomial.com>
- * @version 1.0.0
+ * @file API wrapper
  */
 
 /**
@@ -30,4 +28,3 @@ export async function fetchVotes(id) {
 	const response = await fetch(url);
 	return await response.json();
 }
-
