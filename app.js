@@ -2,40 +2,34 @@
  * @file Initiates web app
  */
 
-import MotionCard from './components/motion-card.js';
 import { fetchMotions } from './utilities/api.js';
-
-// Register motion card custom element
-customElements.define('motion-card', MotionCard);
-
-/**
- * Toggle `visibile` class on filter bar
- */
-function toggleFilterBar() {
-	document.getElementById('filters').classList.toggle('visible');
-}
+import { sequence } from './utilities/damm.js';
 
 /**
  * DOM content load event handler
  */
-function init() {
-	document.getElementById('filter-toggle').onclick = toggleFilterBar;
-	loadMotions();
+async function init() {
+	const motions = await fetchMotions();
+	const listingsBox = document.getElementById('listings');
+	for(const motion of motions) {
+		const motionCard = document.createElement('div');
+		motionCard.classList.add('motion-card');
+		const motionTitle = document.createElement('h2');
+		motionTitle.classList.add('motion-title');
+		motionTitle.innerText = `Motion ${ sequence(motion.rowid.toString()) }`;
+		motionCard.appendChild(motionTitle);
+		const motionDate = document.createElement('p');
+		const date = new Date(motion.motioned_at);
+		motionDate.classList.add('motion-date');
+		motionDate.innerText = `${ date.toLocaleDateString() } ${ date.toLocaleTimeString() }`;
+		motionCard.appendChild(motionDate);
+		const motionText = document.createElement('p');
+		motionText.classList.add('motion-text');
+		motionText.innerText = `Motion ${ motion.motion_text }`;
+		motionCard.appendChild(motionText);
+		listingsBox.appendChild(motionCard);
+	}
 }
 
 // Listen for DOM content load events
 document.addEventListener('DOMContentLoaded', init);
-
-/**
- * Load motions from API
- */
-async function loadMotions() {
-	const motions = await fetchMotions();
-	const listingDiv = document.querySelector('#listing .content');
-	while(listingDiv.childElementCount) listingDiv.removeChild(listingDiv.firstChild);
-	for(const motion of motions) {
-		const card = document.createElement('motion-card');
-		card.populate(motion);
-		listingDiv.appendChild(card);
-	}
-}
