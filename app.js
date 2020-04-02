@@ -11,7 +11,7 @@ import { sequence } from './utilities/damm.js';
 async function init() {
 	const motions = await fetchMotions();
 	const listingsBox = document.getElementById('listings');
-	for(const motion of motions) {
+	for(const motion of motions.reverse()) {
 		const motionCard = document.createElement('div');
 		motionCard.classList.add('motion-card');
 		const motionTitle = document.createElement('h2');
