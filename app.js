@@ -10,8 +10,10 @@ import { sequence } from './utilities/damm.js';
  */
 async function init() {
 	const motions = await fetchMotions();
+	motions.sort((a, b) => b.rowid - a.rowid);
 	const listingsBox = document.getElementById('listings');
-	for(const motion of motions.reverse()) {
+	for(const motion of motions) {
+		const finished = motion.announcement_message_id != null;
 		const motionCard = document.createElement('div');
 		motionCard.classList.add('motion-card');
 		const motionTitle = document.createElement('h2');
