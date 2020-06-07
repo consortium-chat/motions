@@ -5,13 +5,18 @@
 import { fetchMotions } from './utilities/api.js';
 import { sequence } from './utilities/damm.js';
 
+function localeDateTime( date ) {
+	return `${ date.toLocaleDateString() } ${ date.toLocaleTimeString() }`;
+}
 /**
  * DOM content load event handler
  */
 async function init() {
 	const motions = await fetchMotions();
+	motions.sort((a, b) => b.rowid - a.rowid);
 	const listingsBox = document.getElementById('listings');
-	for(const motion of motions.reverse()) {
+	for(const motion of motions) {
+		const finished = motion.announcement_message_id != null;
 		const motionCard = document.createElement('div');
 		motionCard.classList.add('motion-card');
 		const motionTitle = document.createElement('h2');
@@ -20,8 +25,11 @@ async function init() {
 		motionCard.appendChild(motionTitle);
 		const motionDate = document.createElement('p');
 		const date = new Date(motion.motioned_at);
+		const resultChange = new Date(motion.last_result_change);
+		const endsAt = new Date(resultChange.getTime() + (2*24*60*60*1000));
+		const endsText = finished ? "ended at" : "ends at";
 		motionDate.classList.add('motion-date');
-		motionDate.innerText = `${ date.toLocaleDateString() } ${ date.toLocaleTimeString() }`;
+		motionDate.innerText = `Called ${ localeDateTime(date) }, ${ endsText } ${ localeDateTime(endsAt) }`;
 		motionCard.appendChild(motionDate);
 		const motionText = document.createElement('p');
 		motionText.classList.add('motion-text');
