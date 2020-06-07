@@ -5,6 +5,9 @@
 import { fetchMotions } from './utilities/api.js';
 import { sequence } from './utilities/damm.js';
 
+function localeDateTime( date ) {
+	return `${ date.toLocaleDateString() } ${ date.toLocaleTimeString() }`;
+}
 /**
  * DOM content load event handler
  */
@@ -22,8 +25,11 @@ async function init() {
 		motionCard.appendChild(motionTitle);
 		const motionDate = document.createElement('p');
 		const date = new Date(motion.motioned_at);
+		const resultChange = new Date(motion.last_result_change);
+		const endsAt = new Date(resultChange.getTime() + (2*24*60*60*1000));
+		const endsText = finished ? "ended at" : "ends at";
 		motionDate.classList.add('motion-date');
-		motionDate.innerText = `${ date.toLocaleDateString() } ${ date.toLocaleTimeString() }`;
+		motionDate.innerText = `Called ${ localeDateTime(date) }, ${ endsText } ${ localeDateTime(endsAt) }`;
 		motionCard.appendChild(motionDate);
 		const motionText = document.createElement('p');
 		motionText.classList.add('motion-text');
