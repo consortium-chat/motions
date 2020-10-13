@@ -70,6 +70,11 @@ h1, h2, h3, h4, h5, h6 {
 	color: var(--subtle);
 }
 
+.winner {
+	font-weight: bolder;
+	font-size: 120%;
+}
+
 @media(prefers-color-scheme: dark) {
 	:root {
 		background-color: #464a4e;
