@@ -8,6 +8,7 @@ import { sequence } from './utilities/damm.js';
 function localeDateTime( date ) {
 	return `${ date.toLocaleDateString() } ${ date.toLocaleTimeString() }`;
 }
+
 /**
  * DOM content load event handler
  */
@@ -35,6 +36,20 @@ async function init() {
 		motionText.classList.add('motion-text');
 		motionText.innerText = `Motion ${ motion.motion_text }`;
 		motionCard.appendChild(motionText);
+		const motionVotes = document.createElement('p');
+		const winner = document.createElement('span');
+		winner.classList.add('winner');
+		const loser = document.createElement('span');
+		if(motion.is_win){
+			winner.innerText = `for ${motion.yes_vote_count}`
+			loser.innerText  = ` vs ${motion.no_vote_count} against`
+		}else{
+			winner.innerText = `against ${motion.no_vote_count}`
+			loser.innerText  = ` vs ${motion.yes_vote_count} for`
+		}
+		motionVotes.appendChild(winner);
+		motionVotes.appendChild(loser);
+		motionCard.appendChild(motionVotes);
 		listingsBox.appendChild(motionCard);
 	}
 }
